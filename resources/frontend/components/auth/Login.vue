@@ -41,17 +41,7 @@ export default {
       this.callApi('post','/api/login',this.form).then(res => {
         console.log(res);
         if(res.status == 200){
-          if(res.data.role_user == 'admin'){
              this.$router.push({name: 'home'})
-          }
-          else{
-            this.$swal.fire({
-              icon: "error",
-              title: "You are not an administrator",
-              text: "Something went wrong!",
-            });
-          }
-         
         }
         else
         {

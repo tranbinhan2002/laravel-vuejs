@@ -10,8 +10,10 @@ import NotFound from './components/NotFound.vue';
 
 //Home
 import Home from './components/pages/home.vue';
-
-
+//Cart
+import Cart from './components/pages/cart.vue';
+//Oder
+import Order from './components/pages/order.vue';
 
 const router = new VueRouter({
     mode: 'history',
@@ -30,7 +32,7 @@ const router = new VueRouter({
             name: 'register',
             component: Register
         },
-        //Admin
+        //Frontend
         {
             path: '/',
             component: Dashboard,
@@ -40,6 +42,18 @@ const router = new VueRouter({
                     path: '/',
                     name: 'home',
                     component: Home,
+                },
+                 //Cart
+                 {
+                    path: '/cart',
+                    name: 'cart',
+                    component: Cart,
+                },
+                 //Cart
+                 {
+                    path: '/order',
+                    name: 'order',
+                    component: Order,
                 },
             ]
         },

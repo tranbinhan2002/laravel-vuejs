@@ -25,5 +25,17 @@ Route::middleware(['auth:sanctum'])->group(function () {
          Route::get('profile','ProfileController@index');
          Route::put('profile/{profile}', 'ProfileController@update');
          Route::put('profile/change-password/{user}','ProfileController@changePassword');
+        //category
+        Route::resource('category', CategoryController::class);
+        Route::put('change-status-category/{category}','CategoryController@changeStatus');
+         //product
+         Route::resource('product', ProductController::class);
+         Route::put('change-status-product/{product}','ProductController@changeStatus');
     });
+});
+
+Route::namespace('App\Http\Controllers\Frontend')->group(function(){
+    Route::get('fresh-category','CategoryController@index');
+    Route::get('fresh-product','ProductController@index');
+    Route::get('filter-product/{id}','ProductController@productFilter');
 });

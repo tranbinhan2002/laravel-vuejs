@@ -17,7 +17,14 @@ import Profile_Edit from './components/pages/profile/edit.vue';
 import User from './components/pages/users/index.vue';
 import User_Create from './components/pages/users/create.vue';
 import User_Edit from './components/pages/users/edit.vue';
-
+//Category
+import Category from './components/pages/categories/index.vue';
+import Category_Create from './components/pages/categories/create.vue';
+import Category_Edit from './components/pages/categories/edit.vue';
+//Product
+import Product from './components/pages/products/index.vue';
+import Product_Create from './components/pages/products/create.vue';
+import Product_Edit from './components/pages/products/edit.vue';
 
 const router = new VueRouter({
     mode: 'history',
@@ -82,7 +89,38 @@ const router = new VueRouter({
                     name: 'user-edit',
                     component: User_Edit,
                 },
-
+                 //Category
+                 {
+                    path: 'category',
+                    name: 'category',
+                    component: Category,
+                }, 
+                {
+                    path: 'category/create',
+                    name: 'category-create',
+                    component: Category_Create,
+                },
+                {
+                    path: 'category/edit/:id',
+                    name: 'category-edit',
+                    component: Category_Edit
+                },
+                //Product
+                {
+                    path: 'product',
+                    name: 'product',
+                    component: Product,
+                },
+                {
+                    path: 'product/create',
+                    name: 'product-create',
+                    component: Product_Create,
+                },
+                {
+                    path: 'product/edit/:id',
+                    name: 'product-edit',
+                    component: Product_Edit
+                },  
             ]
         },
     ]

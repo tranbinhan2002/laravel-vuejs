@@ -38,6 +38,18 @@
             </a>
             <ul class="nav nav-treeview">
                <li class="nav-item">
+                <router-link :to="{ name: 'category' }" class="nav-link">
+                  <i class="fas fa-certificate nav-icon"></i>
+                  <p>Category</p>
+                </router-link>
+              </li>
+               <li class="nav-item">
+                <router-link :to="{ name: 'product' }" class="nav-link">
+                  <i class="fas fa-certificate nav-icon"></i>
+                  <p>Product</p>
+                </router-link>
+              </li>
+               <li class="nav-item">
                 <router-link :to="{ name: 'user' }" class="nav-link">
                   <i class="fas fa-users nav-icon"></i>
                   <p>User</p>
