@@ -27,7 +27,7 @@
 export default {
 methods: {
   logout(){
-    this.callApi('post','/api/logout').then(res => {
+    this.callApi('post','/api/admin-logout').then(res => {
       if(res.status == 200 ){
           this.$router.push({name: 'login'});
       }

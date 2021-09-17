@@ -1,31 +1,22 @@
 <template>
   <div class="login">
-    <div class="titulo">Register</div>
+    <div class="titulo">Đăng Ký</div>
     <form @submit.prevent="register" method="post">
       <div class="form-group">
         <input
-          v-model="form.name"
-          :class="{ 'is-invalid': form.errors.has('name') }"
           type="text"
-          placeholder="Name"
+          v-model="form.phone"
+          :class="{ 'is-invalid': form.errors.has('phone') }"
+          placeholder="Nhập số điện thoại"
         />
-        <div v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
-      </div>
-      <div class="form-group">
-        <input
-          type="text"
-          v-model="form.email"
-          :class="{ 'is-invalid': form.errors.has('email') }"
-          placeholder="Email"
-        />
-         <div v-if="form.errors.has('email')" v-html="form.errors.get('email')" />
+         <div v-if="form.errors.has('phone')" v-html="form.errors.get('phone')" />
       </div>
       <div class="form-group">
         <input
           type="password"
           :class="{ 'is-invalid': form.errors.has('password') }"
           v-model="form.password"
-          placeholder="Password"
+          placeholder="Nhập mật khẩu"
         />
          <div v-if="form.errors.has('password')" v-html="form.errors.get('password')" />
       </div>
@@ -33,16 +24,16 @@
         <input
           type="password"
           v-model="form.password_confirmation"
-          placeholder="Password confirmation"
+          placeholder="Nhập lại mật khẩu"
           :class="{ 'is-invalid': form.errors.has('password_confirmation') }"
         />
          <div v-if="form.errors.has('password_confirmation')" v-html="form.errors.get('password_confirmation')" />
       </div>
       <div class="btn-submit">
         <button @click.prevent="back" class="enviar mr-2" type="submit">
-          <i class="fas fa-arrow-left"> Back</i>
+          <i class="fas fa-arrow-left"> Thoát</i>
         </button>
-        <button class="enviar" type="submit">Register</button>
+        <button class="enviar" type="submit">Đăng ký</button>
       </div>
     </form>
   </div>
@@ -53,8 +44,7 @@ export default {
   data() {
     return {
       form: new Form({
-        name: "",
-        email: "",
+        phone: "",
         password: "",
         password_confirmation: "",
       }),
@@ -96,7 +86,7 @@ export default {
 }
 .login {
   width: 500px;
-  height: 450px;
+  height: 350px;
   overflow: hidden;
   background: #1e1e1e;
   border-radius: 6px;

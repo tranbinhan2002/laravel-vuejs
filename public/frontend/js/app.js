@@ -4160,13 +4160,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       form: {
-        email: '',
+        phone: '',
         password: ''
       }
     };
@@ -4185,7 +4183,7 @@ __webpack_require__.r(__webpack_exports__);
         } else {
           _this.$swal.fire({
             icon: "error",
-            title: "Email or password Failed",
+            title: "Phone or password Failed",
             text: "Something went wrong!"
           });
         }
@@ -4250,21 +4248,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       form: new Form({
-        name: "",
-        email: "",
+        phone: "",
         password: "",
         password_confirmation: ""
       })
@@ -4503,6 +4491,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -4548,26 +4537,38 @@ __webpack_require__.r(__webpack_exports__);
         this.products[index].quantity--;
       }
     },
-    selectProduct: function selectProduct(index) {
-      var data = this.products[index];
+    addToCart: function addToCart(index) {
+      var _this4 = this;
 
-      if (this.products[index].quantity > 0) {
-        this.carts.push(data);
-        localStorage.setItem('cart', JSON.stringify(this.carts));
-        this.$swal.fire({
-          icon: "success",
-          title: "Đã thêm vào giỏ hàng"
+      axios.get('/api/authenticated').then(function () {
+        var data = _this4.products[index];
+
+        if (_this4.products[index].quantity > 0) {
+          _this4.carts.push(data);
+
+          localStorage.setItem('cart', JSON.stringify(_this4.carts));
+
+          _this4.$swal.fire({
+            icon: "success",
+            title: "Đã thêm vào giỏ hàng"
+          });
+
+          _this4.getCart();
+        } else {
+          _this4.$swal.fire({
+            icon: "errors",
+            title: "Chưa chọn số lượng"
+          });
+        }
+      })["catch"](function () {
+        _this4.$router.push({
+          name: 'login'
         });
-        this.getCart();
-      } else {
-        this.$swal.fire({
-          icon: "errors",
-          title: "Chưa chọn số lượng"
-        });
-      }
+      });
     },
     getCart: function getCart() {
       this.dataCart = JSON.parse(localStorage.getItem('cart'));
+      this.count = this.dataCart.length;
     },
     deleteProductCart: function deleteProductCart(cart) {
       this.dataCart.splice(this.dataCart.indexOf(cart), 1);
@@ -4804,7 +4805,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/cart',
       name: 'cart',
       component: _components_pages_cart_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
-    }, //Cart
+    }, //Oder
     {
       path: '/order',
       name: 'order',
@@ -11150,7 +11151,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".signup[data-v-23ba31e6] {\n  font-size: 1rem;\n}\n.login[data-v-23ba31e6] {\n  width: 500px;\n  height: 450px;\n  overflow: hidden;\n  background: #1e1e1e;\n  border-radius: 6px;\n  margin: 50px auto;\n  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.8);\n}\n.login .titulo[data-v-23ba31e6] {\n  width: 500px;\n  height: 50px;\n  padding-top: 13px;\n  padding-bottom: 13px;\n  font-size: 14px;\n  text-align: center;\n  color: #bfbfbf;\n  font-weight: bold;\n  background: #121212;\n  border: #2d2d2d solid 1px;\n  margin-bottom: 30px;\n  border-top-right-radius: 6px;\n  border-top-left-radius: 6px;\n  font-family: Arial;\n}\n.login form[data-v-23ba31e6] {\n  width: 300px;\n  height: auto;\n  overflow: hidden;\n  margin-left: auto;\n  margin-right: auto;\n}\n.login form input[type=text][data-v-23ba31e6],\n.login form input[type=password][data-v-23ba31e6] {\n  width: 300px;\n  font-size: 12px;\n  padding-top: 14px;\n  padding-bottom: 14px;\n  padding-left: 40px;\n  border: none;\n  color: #bfbfbf;\n  background: #141414;\n  outline: none;\n  margin: 0;\n}\n.login form input[type=text][data-v-23ba31e6] {\n  border-top-left-radius: 6px;\n  border-top-right-radius: 6px;\n  border-top: #0b0b0b solid 1px;\n}\n.login form input[type=password][data-v-23ba31e6] {\n  border-bottom-left-radius: 6px;\n  border-bottom-right-radius: 6px;\n  border-top: #0b0b0b 1px solid;\n  border-bottom: #353535 1px solid;\n}\n.btn-submit[data-v-23ba31e6] {\n  display: flex;\n}\n.login form .enviar[data-v-23ba31e6] {\n  width: 300px;\n  height: 40px;\n  display: block;\n  padding-top: 10px;\n  padding-bottom: 14px;\n  border-radius: 6px;\n  border: none;\n  border-top: #4eb2a8 1px solid;\n  border-bottom: #161616 1px solid;\n  background: #349e92;\n  text-align: center;\n  text-decoration: none;\n  font-size: 12px;\n  font-weight: bold;\n  color: #fff;\n  text-shadow: 0 -1px #1d7464, 0 1px #7bb8b3;\n  font-family: Arial;\n}\n.login .olvido[data-v-23ba31e6] {\n  height: auto;\n  overflow: hidden;\n  padding-top: 25px;\n  padding-bottom: 25px;\n  font-size: 10px;\n  text-align: center;\n}\n.login .olvido .col[data-v-23ba31e6] {\n  width: 50%;\n  height: auto;\n  float: left;\n}\n.login .olvido .col a[data-v-23ba31e6] {\n  color: #fff;\n  text-decoration: none;\n  font: 12px Arial;\n}\nol[data-v-23ba31e6],\nul[data-v-23ba31e6] {\n  list-style: none;\n}\nblockquote[data-v-23ba31e6],\nq[data-v-23ba31e6] {\n  quotes: none;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".signup[data-v-23ba31e6] {\n  font-size: 1rem;\n}\n.login[data-v-23ba31e6] {\n  width: 500px;\n  height: 350px;\n  overflow: hidden;\n  background: #1e1e1e;\n  border-radius: 6px;\n  margin: 50px auto;\n  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.8);\n}\n.login .titulo[data-v-23ba31e6] {\n  width: 500px;\n  height: 50px;\n  padding-top: 13px;\n  padding-bottom: 13px;\n  font-size: 14px;\n  text-align: center;\n  color: #bfbfbf;\n  font-weight: bold;\n  background: #121212;\n  border: #2d2d2d solid 1px;\n  margin-bottom: 30px;\n  border-top-right-radius: 6px;\n  border-top-left-radius: 6px;\n  font-family: Arial;\n}\n.login form[data-v-23ba31e6] {\n  width: 300px;\n  height: auto;\n  overflow: hidden;\n  margin-left: auto;\n  margin-right: auto;\n}\n.login form input[type=text][data-v-23ba31e6],\n.login form input[type=password][data-v-23ba31e6] {\n  width: 300px;\n  font-size: 12px;\n  padding-top: 14px;\n  padding-bottom: 14px;\n  padding-left: 40px;\n  border: none;\n  color: #bfbfbf;\n  background: #141414;\n  outline: none;\n  margin: 0;\n}\n.login form input[type=text][data-v-23ba31e6] {\n  border-top-left-radius: 6px;\n  border-top-right-radius: 6px;\n  border-top: #0b0b0b solid 1px;\n}\n.login form input[type=password][data-v-23ba31e6] {\n  border-bottom-left-radius: 6px;\n  border-bottom-right-radius: 6px;\n  border-top: #0b0b0b 1px solid;\n  border-bottom: #353535 1px solid;\n}\n.btn-submit[data-v-23ba31e6] {\n  display: flex;\n}\n.login form .enviar[data-v-23ba31e6] {\n  width: 300px;\n  height: 40px;\n  display: block;\n  padding-top: 10px;\n  padding-bottom: 14px;\n  border-radius: 6px;\n  border: none;\n  border-top: #4eb2a8 1px solid;\n  border-bottom: #161616 1px solid;\n  background: #349e92;\n  text-align: center;\n  text-decoration: none;\n  font-size: 12px;\n  font-weight: bold;\n  color: #fff;\n  text-shadow: 0 -1px #1d7464, 0 1px #7bb8b3;\n  font-family: Arial;\n}\n.login .olvido[data-v-23ba31e6] {\n  height: auto;\n  overflow: hidden;\n  padding-top: 25px;\n  padding-bottom: 25px;\n  font-size: 10px;\n  text-align: center;\n}\n.login .olvido .col[data-v-23ba31e6] {\n  width: 50%;\n  height: auto;\n  float: left;\n}\n.login .olvido .col a[data-v-23ba31e6] {\n  color: #fff;\n  text-decoration: none;\n  font: 12px Arial;\n}\nol[data-v-23ba31e6],\nul[data-v-23ba31e6] {\n  list-style: none;\n}\nblockquote[data-v-23ba31e6],\nq[data-v-23ba31e6] {\n  quotes: none;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -11246,7 +11247,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".content_top[data-v-f91de944] {\n  font-size: 1.5rem;\n  padding-top: 2rem;\n}\n.content_top .title[data-v-f91de944] {\n  padding: 1rem;\n}\n.content_top .category[data-v-f91de944] {\n  font-size: 1.2rem;\n  font-weight: bold;\n}\n.content_top .category span[data-v-f91de944] {\n  margin: 1rem 0.5rem;\n  cursor: pointer;\n}\n.content_main[data-v-f91de944] {\n  padding-bottom: 4rem;\n}\n.content_main .content_product[data-v-f91de944] {\n  display: flex;\n  justify-content: space-between;\n  font-size: 1.3rem;\n  font-weight: bold;\n  background-color: #fff;\n  border-radius: 8px;\n  box-shadow: 0 2px 10px 0 rgba(0, 85, 255, 0.1);\n  align-products: center;\n  padding: 1rem;\n  margin-top: 1rem;\n}\n.content_main .content_product .product_left[data-v-f91de944] {\n  display: flex;\n}\n.content_main .content_product .product_left .product_price[data-v-f91de944] {\n  font-size: 1.2rem;\n}\n.content_main .content_product .product_left .product_image .image[data-v-f91de944] {\n  width: 10rem;\n  height: 7rem;\n}\n.content_main .content_product .product_left .product_detail[data-v-f91de944] {\n  padding-left: 1rem;\n}\n.content_main .content_product .product_left .product_detail .product_description[data-v-f91de944] {\n  font-size: 1rem;\n}\n.content_main .content_product .product_left .product_detail .product_quantity[data-v-f91de944] {\n  padding-top: 1rem;\n}\n.content_main .content_product .product_left .product_detail .product_quantity .btn_quantity[data-v-f91de944] {\n  width: 3rem;\n  height: 2rem;\n}\n.content_main .content_product .product_left .product_detail .product_quantity span[data-v-f91de944] {\n  margin: 0 0.5rem;\n}\n.cart[data-v-f91de944] {\n  position: fixed;\n  top: 20%;\n  right: 20%;\n  cursor: pointer;\n  font-size: 2rem;\n}\n.modal-body .content_main .content_product .product_left .product_image .image[data-v-f91de944] {\n  width: 7rem;\n  height: 5rem;\n}\n.modal-body .content_main .content_product .product_left .product_detail .product_price[data-v-f91de944] {\n  font-size: 1rem;\n}\n.modal-body .content_main .content_product .product_left .product_detail .product_description[data-v-f91de944] {\n  font-size: 1rem;\n}\n.modal-body .content_main .content_product .product_left .product_detail .product_quantity[data-v-f91de944] {\n  font-size: 1rem;\n  padding-top: 0;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".content_top[data-v-f91de944] {\n  font-size: 1.5rem;\n  padding-top: 2rem;\n}\n.content_top .title[data-v-f91de944] {\n  padding: 1rem;\n}\n.content_top .category[data-v-f91de944] {\n  font-size: 1.2rem;\n  font-weight: bold;\n}\n.content_top .category span[data-v-f91de944] {\n  margin: 1rem 0.5rem;\n  cursor: pointer;\n}\n.content_main[data-v-f91de944] {\n  padding-bottom: 4rem;\n}\n.content_main .content_product[data-v-f91de944] {\n  display: flex;\n  justify-content: space-between;\n  font-size: 1.3rem;\n  font-weight: bold;\n  background-color: #fff;\n  border-radius: 8px;\n  box-shadow: 0 2px 10px 0 rgba(0, 85, 255, 0.1);\n  align-items: center;\n  padding: 1rem;\n  margin-top: 1rem;\n}\n.content_main .content_product .product_left[data-v-f91de944] {\n  display: flex;\n}\n.content_main .content_product .product_left .product_price[data-v-f91de944] {\n  font-size: 1.2rem;\n}\n.content_main .content_product .product_left .product_image .image[data-v-f91de944] {\n  width: 10rem;\n  height: 7rem;\n}\n.content_main .content_product .product_left .product_detail[data-v-f91de944] {\n  padding-left: 1rem;\n}\n.content_main .content_product .product_left .product_detail .product_description[data-v-f91de944] {\n  font-size: 1rem;\n}\n.content_main .content_product .product_left .product_detail .product_quantity[data-v-f91de944] {\n  padding-top: 1rem;\n}\n.content_main .content_product .product_left .product_detail .product_quantity .btn_quantity[data-v-f91de944] {\n  width: 3rem;\n  height: 2rem;\n}\n.content_main .content_product .product_left .product_detail .product_quantity span[data-v-f91de944] {\n  margin: 0 0.5rem;\n}\n.cart[data-v-f91de944] {\n  position: fixed;\n  top: 20%;\n  right: 20%;\n  cursor: pointer;\n  font-size: 2rem;\n}\n.cart .count[data-v-f91de944] {\n  position: absolute;\n  top: 0;\n  font-size: 2rem;\n}\n.modal-body .content_main .content_product .product_left .product_image .image[data-v-f91de944] {\n  width: 7rem;\n  height: 5rem;\n}\n.modal-body .content_main .content_product .product_left .product_detail .product_price[data-v-f91de944] {\n  font-size: 1rem;\n}\n.modal-body .content_main .content_product .product_left .product_detail .product_description[data-v-f91de944] {\n  font-size: 1rem;\n}\n.modal-body .content_main .content_product .product_left .product_detail .product_quantity[data-v-f91de944] {\n  font-size: 1rem;\n  padding-top: 0;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -107338,7 +107339,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "login" }, [
-    _c("div", { staticClass: "titulo" }, [_vm._v("Login")]),
+    _c("div", { staticClass: "titulo" }, [_vm._v("Đăng Nhập")]),
     _vm._v(" "),
     _c(
       "form",
@@ -107358,18 +107359,18 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.form.email,
-                expression: "form.email"
+                value: _vm.form.phone,
+                expression: "form.phone"
               }
             ],
-            attrs: { type: "text", placeholder: "Email" },
-            domProps: { value: _vm.form.email },
+            attrs: { type: "text", placeholder: "Nhập số điện thoại" },
+            domProps: { value: _vm.form.phone },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.form, "email", $event.target.value)
+                _vm.$set(_vm.form, "phone", $event.target.value)
               }
             }
           })
@@ -107385,7 +107386,7 @@ var render = function() {
                 expression: "form.password"
               }
             ],
-            attrs: { type: "password", placeholder: "Password" },
+            attrs: { type: "password", placeholder: "Nhập mật khẩu" },
             domProps: { value: _vm.form.password },
             on: {
               input: function($event) {
@@ -107408,7 +107409,7 @@ var render = function() {
                 staticClass: "col signup",
                 attrs: { to: { name: "register" } }
               },
-              [_vm._v("Sign up")]
+              [_vm._v("Đăng ký")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col" })
@@ -107417,7 +107418,7 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("button", { staticClass: "enviar", attrs: { type: "submit" } }, [
-          _vm._v("Login")
+          _vm._v("Đăng nhập")
         ])
       ]
     )
@@ -107447,7 +107448,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "login" }, [
-    _c("div", { staticClass: "titulo" }, [_vm._v("Register")]),
+    _c("div", { staticClass: "titulo" }, [_vm._v("Đăng Ký")]),
     _vm._v(" "),
     _c(
       "form",
@@ -107467,56 +107468,26 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.form.name,
-                expression: "form.name"
+                value: _vm.form.phone,
+                expression: "form.phone"
               }
             ],
-            class: { "is-invalid": _vm.form.errors.has("name") },
-            attrs: { type: "text", placeholder: "Name" },
-            domProps: { value: _vm.form.name },
+            class: { "is-invalid": _vm.form.errors.has("phone") },
+            attrs: { type: "text", placeholder: "Nhập số điện thoại" },
+            domProps: { value: _vm.form.phone },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.form, "name", $event.target.value)
+                _vm.$set(_vm.form, "phone", $event.target.value)
               }
             }
           }),
           _vm._v(" "),
-          _vm.form.errors.has("name")
+          _vm.form.errors.has("phone")
             ? _c("div", {
-                domProps: { innerHTML: _vm._s(_vm.form.errors.get("name")) }
-              })
-            : _vm._e()
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.email,
-                expression: "form.email"
-              }
-            ],
-            class: { "is-invalid": _vm.form.errors.has("email") },
-            attrs: { type: "text", placeholder: "Email" },
-            domProps: { value: _vm.form.email },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form, "email", $event.target.value)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _vm.form.errors.has("email")
-            ? _c("div", {
-                domProps: { innerHTML: _vm._s(_vm.form.errors.get("email")) }
+                domProps: { innerHTML: _vm._s(_vm.form.errors.get("phone")) }
               })
             : _vm._e()
         ]),
@@ -107532,7 +107503,7 @@ var render = function() {
               }
             ],
             class: { "is-invalid": _vm.form.errors.has("password") },
-            attrs: { type: "password", placeholder: "Password" },
+            attrs: { type: "password", placeholder: "Nhập mật khẩu" },
             domProps: { value: _vm.form.password },
             on: {
               input: function($event) {
@@ -107564,7 +107535,7 @@ var render = function() {
             class: {
               "is-invalid": _vm.form.errors.has("password_confirmation")
             },
-            attrs: { type: "password", placeholder: "Password confirmation" },
+            attrs: { type: "password", placeholder: "Nhập lại mật khẩu" },
             domProps: { value: _vm.form.password_confirmation },
             on: {
               input: function($event) {
@@ -107600,11 +107571,11 @@ var render = function() {
                 }
               }
             },
-            [_c("i", { staticClass: "fas fa-arrow-left" }, [_vm._v(" Back")])]
+            [_c("i", { staticClass: "fas fa-arrow-left" }, [_vm._v(" Thoát")])]
           ),
           _vm._v(" "),
           _c("button", { staticClass: "enviar", attrs: { type: "submit" } }, [
-            _vm._v("Register")
+            _vm._v("Đăng ký")
           ])
         ])
       ]
@@ -107885,9 +107856,10 @@ var render = function() {
                 _c("span", [_vm._v("/Kg")])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "product_description" }, [
-                _vm._v("Bán theo kg")
-              ]),
+              _c("div", {
+                staticClass: "product_description",
+                domProps: { innerHTML: _vm._s(product.description) }
+              }),
               _vm._v(" "),
               _c("div", { staticClass: "product_quantity" }, [
                 _c(
@@ -107928,13 +107900,13 @@ var render = function() {
                 staticClass: "btn btn-outline-dark",
                 on: {
                   click: function($event) {
-                    return _vm.selectProduct(index)
+                    return _vm.addToCart(index)
                   }
                 }
               },
               [
                 _c("i", { staticClass: "fas fa-shopping-cart" }, [
-                  _vm._v(" Chọn")
+                  _vm._v(" Mua")
                 ])
               ]
             )
@@ -107954,7 +107926,11 @@ var render = function() {
           }
         }
       },
-      [_c("i", { staticClass: "fas fa-shopping-cart" })]
+      [
+        _c("i", { staticClass: "fas fa-shopping-cart" }),
+        _vm._v(" "),
+        _c("span", { staticClass: "count" }, [_vm._v(_vm._s(_vm.count))])
+      ]
     ),
     _vm._v(" "),
     _c(

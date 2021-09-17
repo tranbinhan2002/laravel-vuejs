@@ -1,27 +1,25 @@
 <template>
   <div class="login">
-    <div class="titulo">Login</div>
+    <div class="titulo">Đăng Nhập</div>
     <form @submit.prevent="login"  method="post">
       <div class="form-group">
         <input
           type="text"
-          placeholder="Email"
-          v-model="form.email"
+          placeholder="Nhập số điện thoại"
+          v-model="form.phone"
         />
-       
       </div>
       <div class="form-group">
         <input type="password"
           v-model="form.password"
-         placeholder="Password" />
+         placeholder="Nhập mật khẩu" />
       </div>
       <div class="olvido">
-        <router-link class="col signup" :to="{name:'register'}">Sign up</router-link>
+        <router-link class="col signup" :to="{name:'register'}">Đăng ký</router-link>
         <div class="col">
-          <!-- <a href="#">Fotgot Password?</a> -->
         </div>
       </div>
-      <button class="enviar" type="submit">Login</button>
+      <button class="enviar" type="submit">Đăng nhập</button>
     </form>
   </div>
 </template>
@@ -31,7 +29,7 @@ export default {
   data() {
     return {
       form: {
-        email: '',
+        phone: '',
         password: ''
       }
     }
@@ -47,7 +45,7 @@ export default {
         {
           this.$swal.fire({
               icon: "error",
-              title: "Email or password Failed",
+              title: "Phone or password Failed",
               text: "Something went wrong!",
             });
         }

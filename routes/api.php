@@ -10,9 +10,9 @@ Route::middleware('auth:sanctum')->get('/authenticated', function () {
 });
 
 Route::namespace('App\Http\Controllers')->group(function(){
-    Route::post('login','AuthController@login');
-    Route::post('register','AuthController@register');
-    Route::post('logout','AuthController@logout');
+    Route::post('admin-login','AuthController@login');
+    Route::post('admin-register','AuthController@register');
+    Route::post('admin-logout','AuthController@logout');
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -34,7 +34,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 });
 
+//Frontend
 Route::namespace('App\Http\Controllers\Frontend')->group(function(){
+    //Auth
+    Route::post('login','AuthController@login');
+    Route::post('register','AuthController@register');
+    Route::post('logout','AuthController@logout');
+    
     Route::get('fresh-category','CategoryController@index');
     Route::get('fresh-product','ProductController@index');
     Route::get('filter-product/{id}','ProductController@productFilter');

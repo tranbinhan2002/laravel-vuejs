@@ -18,7 +18,7 @@
                     <div class="product_detail">
                         <div class="product_name">{{product.name}}</div>
                         <div class="product_price">Giá bán: {{product.price}}đ<span>/Kg</span></div>
-                        <div class="product_description">Bán theo kg</div>
+                        <div class="product_description" v-html="product.description"></div>
                         <div class="product_quantity">
                             <button @click="decreament(index)" class="btn_quantity">-</button>
                                 <span>{{product.quantity}}</span>
@@ -27,12 +27,13 @@
                     </div>
                 </div>
                 <div class="product_rigth">
-                    <button @click="selectProduct(index)" class="btn btn-outline-dark"><i class="fas fa-shopping-cart"> Chọn</i></button>
+                    <button @click="addToCart(index)" class="btn btn-outline-dark"><i class="fas fa-shopping-cart"> Mua</i></button>
                 </div>
             </div>
         </div>
         <div @click="showCart()" class="cart">
             <i class="fas fa-shopping-cart"></i>
+            <span class="count">{{count}}</span>
         </div>
         <div class="modal fade" id="cart" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -111,7 +112,8 @@ export default {
             }
             
         },
-        selectProduct(index){
+        addToCart(index){
+             axios.get('/api/authenticated').then(() => {
             const data = this.products[index];
             if(this.products[index].quantity > 0){
                 this.carts.push(data);
@@ -128,10 +130,13 @@ export default {
                     title: "Chưa chọn số lượng",
                 });
             }
-           
+                }).catch(() => {
+                    this.$router.push({name: 'login'});
+            }); 
         },
         getCart(){
              this.dataCart = JSON.parse(localStorage.getItem('cart'));
+             this.count = this.dataCart.length;
         },
         deleteProductCart(cart){
              this.dataCart.splice(this.dataCart.indexOf(cart), 1);
@@ -183,7 +188,7 @@ export default {
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 10px 0 rgba(0, 85, 255, 0.1);
-            align-products: center;
+            align-items: center;
             padding: 1rem;
             margin-top: 1rem;
             .product_left{
@@ -222,6 +227,11 @@ export default {
         right: 20%;
         cursor: pointer;
         font-size: 2rem;
+        .count{
+            position: absolute;
+            top: 0;
+            font-size: 2rem;
+        }
     }
     .modal-body{
         .content_main{
@@ -245,9 +255,6 @@ export default {
                             padding-top: 0;
                         }
                     }
-                }
-                .product_rigth{
-
                 }
             }
         }

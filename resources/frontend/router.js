@@ -49,7 +49,7 @@ const router = new VueRouter({
                     name: 'cart',
                     component: Cart,
                 },
-                 //Cart
+                 //Oder
                  {
                     path: '/order',
                     name: 'order',

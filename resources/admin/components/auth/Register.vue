@@ -63,7 +63,7 @@ export default {
   methods: {
     register() {
       this.form
-        .post("/api/register")
+        .post("/api/admin-register")
         .then((res) => {
           if (res.status == 200) {
             this.$swal.fire({

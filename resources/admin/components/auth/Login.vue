@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     login() {
-      this.callApi('post','/api/login',this.form).then(res => {
+      this.callApi('post','/api/admin-login',this.form).then(res => {
         console.log(res);
         if(res.status == 200){
           if(res.data.role_user == 'admin'){
