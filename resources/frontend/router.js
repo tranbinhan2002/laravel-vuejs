@@ -14,6 +14,8 @@ import Home from './components/pages/home.vue';
 import Cart from './components/pages/cart.vue';
 //Oder
 import Order from './components/pages/order.vue';
+//Checkout
+import Checkout from './components/pages/checkout.vue';
 
 const router = new VueRouter({
     mode: 'history',
@@ -55,6 +57,12 @@ const router = new VueRouter({
                     name: 'order',
                     component: Order,
                 },
+                //Checkout
+                {
+                    path: '/checkout',
+                    name: 'checkout',
+                    component: Checkout,
+                }
             ]
         },
     ]

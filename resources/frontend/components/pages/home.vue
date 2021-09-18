@@ -62,7 +62,7 @@
                     </div>
                 </div>
             <div class="modal-footer">
-                <button @click="hideCart()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button @click="hideCart()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                 <button type="button" @click="checkOut()" class="btn btn-primary">Mua Hàng</button>
         </div>
     </div>
@@ -113,7 +113,6 @@ export default {
             
         },
         addToCart(index){
-             axios.get('/api/authenticated').then(() => {
             const data = this.products[index];
             if(this.products[index].quantity > 0){
                 this.carts.push(data);
@@ -130,9 +129,6 @@ export default {
                     title: "Chưa chọn số lượng",
                 });
             }
-                }).catch(() => {
-                    this.$router.push({name: 'login'});
-            }); 
         },
         getCart(){
              this.dataCart = JSON.parse(localStorage.getItem('cart'));
@@ -150,6 +146,7 @@ export default {
              $("#cart").modal("hide");
         },
         checkOut(){
+            
              this.$router.push({name: 'cart'});
               $("#cart").modal("hide");
         }

@@ -17,14 +17,14 @@
                     </div>
                 </div>
                 <div class="product_rigth">
-                    <button class="btn btn-outline-dark">X</button>
+                    <button @click="deleteProduct(product)" class="btn btn-outline-dark">X</button>
                 </div>
             </div>
         </div>
         <div class="content_bottom">
-          Tổng Tiền: <span>32322đ</span>
+          Tổng Tiền: <span>{{total}}</span>
           <div>
-             <button class="btn_checkout">Thanh Toán</button>
+             <button @click="checkout()" class="btn_checkout">Thanh toán</button>
           </div>
         </div>
     </div>
@@ -35,17 +35,32 @@ export default {
   data() {
     return{
       listCart: [],
+      total: 0,
     }
   },
   created(){
-    const dataLocal = JSON.parse(localStorage.getItem('cart'));
-    this.listCart = dataLocal ? dataLocal : [];
+      this.getCart();
     this.totalPrice();
+    this.listCart.forEach((item,index)=> {
+        this.total += item.price * item.quantity;
+    })
   },
   methods: {
-     totalPrice(price,quantity){
-        return price * quantity;
+        getCart(){
+            this.listCart = JSON.parse(localStorage.getItem('cart'));
+        },
+        totalPrice(price,quantity){
+            return price * quantity;
+        },
+      checkout(){
+           this.$router.push({name: 'checkout'});
       },
+      deleteProduct(product){
+        this.listCart.splice(this.listCart.indexOf(product), 1);
+        localStorage.setItem('cart',JSON.stringify(this.listCart));
+        this.getCart();
+        this.totalPrice();
+      }
   },
 
 
