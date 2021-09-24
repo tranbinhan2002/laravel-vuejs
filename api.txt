@@ -1,0 +1,75 @@
++--------+-----------+---------------------------------------+------------------+---------------------------------------------------------------+------------------------------------------+
+| Domain | Method    | URI                                   | Name             | Action                                                        | Middleware                               |
++--------+-----------+---------------------------------------+------------------+---------------------------------------------------------------+------------------------------------------+
+|        | POST      | api/admin-login                       |                  | App\Http\Controllers\AuthController@login                     | api                                      |
+|        | POST      | api/admin-logout                      |                  | App\Http\Controllers\AuthController@logout                    | api                                      |
+|        | POST      | api/admin-register                    |                  | App\Http\Controllers\AuthController@register                  | api                                      |
+|        | GET|HEAD  | api/authenticated                     |                  | Closure                                                       | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | GET|HEAD  | api/category                          | category.index   | App\Http\Controllers\Admin\CategoryController@index           | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | POST      | api/category                          | category.store   | App\Http\Controllers\Admin\CategoryController@store           | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | GET|HEAD  | api/category/create                   | category.create  | App\Http\Controllers\Admin\CategoryController@create          | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | GET|HEAD  | api/category/{category}               | category.show    | App\Http\Controllers\Admin\CategoryController@show            | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | DELETE    | api/category/{category}               | category.destroy | App\Http\Controllers\Admin\CategoryController@destroy         | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | PUT|PATCH | api/category/{category}               | category.update  | App\Http\Controllers\Admin\CategoryController@update          | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | GET|HEAD  | api/category/{category}/edit          | category.edit    | App\Http\Controllers\Admin\CategoryController@edit            | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | PUT       | api/change-status-category/{category} |                  | App\Http\Controllers\Admin\CategoryController@changeStatus    | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | PUT       | api/change-status-product/{product}   |                  | App\Http\Controllers\Admin\ProductController@changeStatus     | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | PUT       | api/change-status-user/{user}         |                  | App\Http\Controllers\Admin\UserController@changeStatus        | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | GET|HEAD  | api/filter-product/{id}               |                  | App\Http\Controllers\Frontend\ProductController@productFilter | api                                      |
+|        | GET|HEAD  | api/fresh-category                    |                  | App\Http\Controllers\Frontend\CategoryController@index        | api                                      |
+|        | GET|HEAD  | api/fresh-product                     |                  | App\Http\Controllers\Frontend\ProductController@index         | api                                      |
+|        | POST      | api/login                             |                  | App\Http\Controllers\Frontend\AuthController@login            | api                                      |
+|        | POST      | api/logout                            |                  | App\Http\Controllers\Frontend\AuthController@logout           | api                                      |
+|        | POST      | api/order                             |                  | App\Http\Controllers\Frontend\OrderController@order           | api                                      |
+|        | POST      | api/product                           | product.store    | App\Http\Controllers\Admin\ProductController@store            | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | GET|HEAD  | api/product                           | product.index    | App\Http\Controllers\Admin\ProductController@index            | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | GET|HEAD  | api/product/create                    | product.create   | App\Http\Controllers\Admin\ProductController@create           | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | DELETE    | api/product/{product}                 | product.destroy  | App\Http\Controllers\Admin\ProductController@destroy          | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | GET|HEAD  | api/product/{product}                 | product.show     | App\Http\Controllers\Admin\ProductController@show             | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | PUT|PATCH | api/product/{product}                 | product.update   | App\Http\Controllers\Admin\ProductController@update           | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | GET|HEAD  | api/product/{product}/edit            | product.edit     | App\Http\Controllers\Admin\ProductController@edit             | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | GET|HEAD  | api/profile                           |                  | App\Http\Controllers\Admin\ProfileController@index            | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | PUT       | api/profile/change-password/{user}    |                  | App\Http\Controllers\Admin\ProfileController@changePassword   | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | PUT       | api/profile/{profile}                 |                  | App\Http\Controllers\Admin\ProfileController@update           | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | POST      | api/register                          |                  | App\Http\Controllers\Frontend\AuthController@register         | api                                      |
+|        | POST      | api/user                              | user.store       | App\Http\Controllers\Admin\UserController@store               | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | GET|HEAD  | api/user                              | user.index       | App\Http\Controllers\Admin\UserController@index               | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | PUT       | api/user/change-password/{user}       |                  | App\Http\Controllers\Admin\UserController@changePassword      | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | GET|HEAD  | api/user/create                       | user.create      | App\Http\Controllers\Admin\UserController@create              | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | PUT|PATCH | api/user/{user}                       | user.update      | App\Http\Controllers\Admin\UserController@update              | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | GET|HEAD  | api/user/{user}                       | user.show        | App\Http\Controllers\Admin\UserController@show                | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | DELETE    | api/user/{user}                       | user.destroy     | App\Http\Controllers\Admin\UserController@destroy             | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | GET|HEAD  | api/user/{user}/edit                  | user.edit        | App\Http\Controllers\Admin\UserController@edit                | api                                      |
+|        |           |                                       |                  |                                                               | App\Http\Middleware\Authenticate:sanctum |
+|        | GET|HEAD  | be/{any}                              |                  | Closure                                                       | web                                      |
+|        | GET|HEAD  | sanctum/csrf-cookie                   |                  | Laravel\Sanctum\Http\Controllers\CsrfCookieController@show    | web                                      |
+|        | GET|HEAD  | {any}                                 |                  | Closure                                                       | web                                      |
++--------+-----------+---------------------------------------+------------------+---------------------------------------------------------------+------------------------------------------+

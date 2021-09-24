@@ -12,10 +12,12 @@ import NotFound from './components/NotFound.vue';
 import Home from './components/pages/home.vue';
 //Cart
 import Cart from './components/pages/cart.vue';
-//Oder
-import Order from './components/pages/order.vue';
+//Receipt
+import Receipt from './components/pages/receipt.vue';
 //Checkout
 import Checkout from './components/pages/checkout.vue';
+//Oder 
+import Order from './components/pages/oder.vue';
 
 const router = new VueRouter({
     mode: 'history',
@@ -51,11 +53,17 @@ const router = new VueRouter({
                     name: 'cart',
                     component: Cart,
                 },
-                 //Oder
+                 //Order
                  {
                     path: '/order',
                     name: 'order',
                     component: Order,
+                },
+                 //Receipt
+                 {
+                    path: '/receipt',
+                    name: 'receipt',
+                    component: Receipt,
                 },
                 //Checkout
                 {

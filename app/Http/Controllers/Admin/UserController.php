@@ -20,7 +20,7 @@ class UserController extends Controller
     {
         return User::when(request('search'),function($query){
             $query->where('name','like','%'. request('search') .'%')->orWhere('email','like','%'. request('search') .'%')->paginate(5);
-        })->paginate(5);
+        })->latest()->paginate(5);
     }
 
     /**

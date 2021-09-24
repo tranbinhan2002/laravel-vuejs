@@ -10,6 +10,12 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+        public function index(){
+            $order =  Order::when(request('phone'),function($query){
+                $query->where('phone',request('phone'))->paginate(1);
+            })->with('products')->latest()->paginate(1);
+            return response()->json($order,200);
+        }
     public function order(Request $request){
         $this->validate($request, [
             'name' => 'required',
@@ -25,11 +31,10 @@ class OrderController extends Controller
         ]);
         if(!empty($request->products)){
             foreach($request->products as $product){
-
                $orderProduct = new OrderProduct();
                $orderProduct->product_id = $product['id'];
                $orderProduct->order_id = $order->id;
-
+               $orderProduct->quantity = $product['quantity'];
                $orderProduct->save();
             }
 

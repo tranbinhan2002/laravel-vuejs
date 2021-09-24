@@ -45,5 +45,7 @@ Route::namespace('App\Http\Controllers\Frontend')->group(function(){
     Route::get('fresh-product','ProductController@index');
     Route::get('filter-product/{id}','ProductController@productFilter');
 
+
     Route::post('order', 'OrderController@order');
+    Route::get('receipt', 'OrderController@index');
 });

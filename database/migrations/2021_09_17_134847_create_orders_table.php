@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->string('address');
             $table->integer('total')->default(0);
             $table->string('note')->nullable();
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

@@ -11,21 +11,21 @@
                     </div>
                     <div class="product_detail">
                         <div class="product_name">{{product.name}}</div>
-                        <div class="product_price">Giá bán: {{product.price}}đ<span>/Kg</span></div>
+                        <div class="product_price">Giá bán: {{formatPrice(product.price)}}đ<span>/Kg</span></div>
                         <div class="product_quantity">Số lượng: {{product.quantity}}</div>
-                        <div class="product_price">Thành tiền: {{totalPrice(product.price,product.quantity)}}đ</div>
+                        <div class="product_price">Thành tiền: {{formatPrice(product.price * product.quantity)}}đ</div>
                     </div>
                 </div>
                 <div class="product_rigth">
                     <button @click="deleteProduct(product)" class="btn btn-outline-dark">X</button>
                 </div>
             </div>
-        </div>
-        <div class="content_bottom">
-          Tổng Tiền: <span>{{total}}</span>
+             <div class="content_bottom">
+          Tổng Tiền: <span>{{ formatPrice(total)}}đ</span>
           <div>
              <button @click="checkout()" class="btn_checkout">Thanh toán</button>
           </div>
+        </div>
         </div>
     </div>
 </template>
@@ -39,27 +39,39 @@ export default {
     }
   },
   created(){
-      this.getCart();
-    this.totalPrice();
-    this.listCart.forEach((item,index)=> {
-        this.total += item.price * item.quantity;
-    })
+    this.getCart();
   },
   methods: {
         getCart(){
-            this.listCart = JSON.parse(localStorage.getItem('cart'));
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            this.listCart = cart ? cart : [];
+              this.listCart.forEach((item,index)=> {
+                    this.total += item.price * item.quantity;
+             }) ; 
         },
-        totalPrice(price,quantity){
-            return price * quantity;
-        },
+         formatPrice(value) {
+        var formatter = new Intl.NumberFormat('en-US', {
+            currency: 'VND',
+            minimumFractionDigits: 0
+        });
+        return formatter.format(value);
+    },
       checkout(){
-           this.$router.push({name: 'checkout'});
+          if(this.listCart == 0){
+               this.$swal.fire({
+                    icon: "errors",
+                    title: "Không thể thanh toán khi không có sản phẩm nào",
+                });
+                 this.$router.push({name: 'home'});
+          }else{
+                this.$router.push({name: 'checkout'});
+          }
+           
       },
       deleteProduct(product){
         this.listCart.splice(this.listCart.indexOf(product), 1);
         localStorage.setItem('cart',JSON.stringify(this.listCart));
         this.getCart();
-        this.totalPrice();
       }
   },
 
@@ -74,10 +86,12 @@ export default {
    height: 100vh;
 }
  .content_top{
-        font-size: 1.5rem;
-        padding-top: 2rem;
-        .title{
-            padding: 1rem;
+             .title{
+            font-size: 2rem;
+            padding: 3rem;
+            text-align: center;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
         }
     }
     .content_main{
@@ -120,6 +134,8 @@ export default {
       font-size: 1.3rem;
       text-align: right;
       padding-right: 2rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
       .btn_checkout{
         margin-top: 1rem;
         padding: 0.5rem;

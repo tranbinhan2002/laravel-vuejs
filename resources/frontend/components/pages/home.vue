@@ -1,7 +1,7 @@
 <template>
     <div class="content">
         <div class="content_top">
-            <div class="title">Danh Sách Thực Phẩm</div>
+            <div class="title">Thực Phẩm</div>
            <div class="category">
                <span @click.prevent="getProduct()">Tất cả</span>
                 <span v-for="category in categories" :key="category.id">
@@ -17,7 +17,7 @@
                     </div>
                     <div class="product_detail">
                         <div class="product_name">{{product.name}}</div>
-                        <div class="product_price">Giá bán: {{product.price}}đ<span>/Kg</span></div>
+                        <div class="product_price">Giá bán: {{formatPrice(product.price) }}đ<span>/Kg</span></div>
                         <div class="product_description" v-html="product.description"></div>
                         <div class="product_quantity">
                             <button @click="decreament(index)" class="btn_quantity">-</button>
@@ -31,43 +31,6 @@
                 </div>
             </div>
         </div>
-        <div @click="showCart()" class="cart">
-            <i class="fas fa-shopping-cart"></i>
-            <span class="count">{{count}}</span>
-        </div>
-        <div class="modal fade" id="cart" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Giỏ Hàng</h5>
-                    <button @click="hideCart()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="content_main">
-                        <div class="content_product" v-for="(cart,index) in dataCart" :key="index">
-                            <div class="product_left">
-                                <div class="product_image">
-                                    <img class="image" :src="cart.image" alt="">
-                                </div>
-                                <div class="product_detail">
-                                    <div class="product_name">{{cart.name}}</div>
-                                    <div class="product_price">Giá bán: {{cart.price}}đ<span>/Kg</span></div>
-                                    <div class="product_quantity">Số lượng: {{cart.quantity}}</div>
-                                </div>
-                            </div>
-                            <div class="product_rigth">
-                                <button @click="deleteProductCart(cart)" class="btn btn-outline-dark">X</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <div class="modal-footer">
-                <button @click="hideCart()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" @click="checkOut()" class="btn btn-primary">Mua Hàng</button>
-        </div>
-    </div>
-  </div>
-</div>
     </div>
 </template>
 
@@ -75,15 +38,12 @@
 export default {
     data(){
         return{
-            count: 0,
             products:{},
             carts: [],
-            dataCart: [],
             categories: {}
         }
     },
     created(){
-        this.getCart();
         this.getCategory();
         this.getProduct();
     },
@@ -103,25 +63,31 @@ export default {
                 this.products = res.data.data;
             });
         },
-         increament(index){
-            this.products[index].quantity++
+         increament(product){
+            this.products[product].quantity++;
         },
-        decreament(index){
-            if(this.products[index].quantity > 0){
-                this.products[index].quantity--
+        decreament(product){
+            if(this.products[product].quantity > 0){
+                this.products[product].quantity--;
             }
             
         },
-        addToCart(index){
-            const data = this.products[index];
-            if(this.products[index].quantity > 0){
+        formatPrice(value) {
+        var formatter = new Intl.NumberFormat('en-US', {
+            currency: 'VND',
+            minimumFractionDigits: 0
+        });
+        return formatter.format(value);
+    },
+        addToCart(product){
+            const data = this.products[product];
+            if(this.products[product].quantity > 0){
                 this.carts.push(data);
                 localStorage.setItem('cart',JSON.stringify(this.carts));
                 this.$swal.fire({
                 icon: "success",
                 title: "Đã thêm vào giỏ hàng",
-                });
-                this.getCart();
+                }); 
             }
             else{
                  this.$swal.fire({
@@ -129,28 +95,7 @@ export default {
                     title: "Chưa chọn số lượng",
                 });
             }
-        },
-        getCart(){
-             this.dataCart = JSON.parse(localStorage.getItem('cart'));
-             this.count = this.dataCart.length;
-        },
-        deleteProductCart(cart){
-             this.dataCart.splice(this.dataCart.indexOf(cart), 1);
-              localStorage.setItem('cart',JSON.stringify(this.dataCart));
-            this.getCart();
-        },
-        showCart(){
-             $("#cart").modal("show");
-        },
-        hideCart(){
-             $("#cart").modal("hide");
-        },
-        checkOut(){
-            
-             this.$router.push({name: 'cart'});
-              $("#cart").modal("hide");
-        }
-        
+        }, 
     },
 
 
@@ -159,10 +104,12 @@ export default {
 
 <style lang="scss" scoped>
  .content_top{
-        font-size: 1.5rem;
-        padding-top: 2rem;
         .title{
-            padding: 1rem;
+            font-size: 2rem;
+            padding: 3rem;
+            text-align: center;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
         }
         .category{
 

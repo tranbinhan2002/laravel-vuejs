@@ -35,7 +35,7 @@
               <textarea v-model="form.note" class="form-control"></textarea>
             </div>
              <div class="content_bottom">
-            Tổng Tiền: <span>{{ form.total}}</span>
+            Tổng Tiền: <span>{{ formatPrice(form.total) }}đ</span>
           <div>
              <button type="submit" class="btn_checkout">Xác nhận</button>
           </div>
@@ -74,19 +74,42 @@ export default {
         return price * quantity;
       },
     order(){
-     this.form.post('/api/order').then(res => {
-       if(res.status == 200){
-          console.log(res);
-       } 
-      }).catch(error => {
-        console.log(error)
-      })
-    }
-  },
+       this.$swal
+        .fire({
+          title: "Xác nhận thanh toán",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+             this.form.post('/api/order').then(res => {
+                   if(res.status == 200){
+                     localStorage.setItem('orderId',JSON.stringify(res.data.id));
+                    this.$swal.fire({
+                        icon: "success",
+                        title: "Đặt hàng thành công, Hãy lưu lại mã hóa đơn",
+                    });
+                    localStorage.setItem('receipt',JSON.stringify(this.form));
+                    this.$router.push({name: 'order'});
+                  } 
 
+             });
+          }
+      });
 
+    },
+      formatPrice(value) {
+        var formatter = new Intl.NumberFormat('en-US', {
+            currency: 'VND',
+            minimumFractionDigits: 0
+        });
+        return formatter.format(value);
+    },
 
-
+  }
 }
 </script>
 
@@ -96,10 +119,12 @@ export default {
    height: 100vh;
 }
  .content_top{
-        font-size: 1.5rem;
-        padding-top: 2rem;
         .title{
-            padding: 1rem;
+            font-size: 2rem;
+            padding: 3rem;
+            text-align: center;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
         }
     }
     .content_main{

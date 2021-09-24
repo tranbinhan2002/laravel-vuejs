@@ -18,7 +18,7 @@ class CategoryController extends Controller
     {
         return Category::when(request('search'),function($query){
             $query->where('name','like','%'. request('search') .'%')->paginate(10);
-        })->paginate(10);
+        })->latest()->paginate(10);
     }
     /**
      * Show the form for creating a new resource.

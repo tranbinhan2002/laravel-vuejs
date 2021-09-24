@@ -11,10 +11,6 @@ class Order extends Model
     protected $guarded = [];
     public function products()
     {
-        return $this->belongsToMany(Product::class);
-    }
-    public function orderProduct()
-    {
-        return $this->belongsToMany(OrderProduct::class);
+        return $this->belongsToMany(Product::class,'order_products','order_id','product_id')->withPivot('quantity');
     }
 }

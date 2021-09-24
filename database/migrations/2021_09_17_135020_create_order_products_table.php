@@ -17,6 +17,7 @@ class CreateOrderProductsTable extends Migration
             $table->id();
             $table->unsignedInteger('product_id');
             $table->unsignedInteger('order_id');
+            $table->integer('quantity')->default(0);
             $table->timestamps();
         });
     }

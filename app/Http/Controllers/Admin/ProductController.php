@@ -18,7 +18,7 @@ class ProductController extends Controller
     {
         return Product::when(request('search'),function($query){
             $query->where('name','like','%'. request('search') .'%')->paginate(5);
-        })->with('category')->paginate(5);
+        })->latest()->with('category')->paginate(5);
     }
 
     /**
